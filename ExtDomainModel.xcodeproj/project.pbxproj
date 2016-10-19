@@ -11,6 +11,7 @@
 		B471A0251DB6E25D004C81E9 /* PersonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B471A0241DB6E25D004C81E9 /* PersonTests.swift */; };
 		B471A0271DB6E270004C81E9 /* MoneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B471A0261DB6E270004C81E9 /* MoneyTests.swift */; };
 		B471A0281DB6E3DE004C81E9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F8AD1F1DB224D600B4D9D3 /* main.swift */; };
+		B471A02A1DB6F9E5004C81E9 /* JobTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B471A0291DB6F9E5004C81E9 /* JobTests.swift */; };
 		B4F8AD201DB224D600B4D9D3 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F8AD1F1DB224D600B4D9D3 /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		B471A0201DB6E0AE004C81E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B471A0241DB6E25D004C81E9 /* PersonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonTests.swift; sourceTree = "<group>"; };
 		B471A0261DB6E270004C81E9 /* MoneyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTests.swift; sourceTree = "<group>"; };
+		B471A0291DB6F9E5004C81E9 /* JobTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobTests.swift; sourceTree = "<group>"; };
 		B4F8AD1C1DB224D600B4D9D3 /* ExtDomainModel */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ExtDomainModel; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4F8AD1F1DB224D600B4D9D3 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -57,6 +59,7 @@
 		B471A01D1DB6E0AE004C81E9 /* ExtDomainModelTests */ = {
 			isa = PBXGroup;
 			children = (
+				B471A0291DB6F9E5004C81E9 /* JobTests.swift */,
 				B471A0261DB6E270004C81E9 /* MoneyTests.swift */,
 				B471A0241DB6E25D004C81E9 /* PersonTests.swift */,
 				B471A01E1DB6E0AE004C81E9 /* ExtDomainModelTests.swift */,
@@ -184,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B471A0251DB6E25D004C81E9 /* PersonTests.swift in Sources */,
+				B471A02A1DB6F9E5004C81E9 /* JobTests.swift in Sources */,
 				B471A01F1DB6E0AE004C81E9 /* ExtDomainModelTests.swift in Sources */,
 				B471A0281DB6E3DE004C81E9 /* main.swift in Sources */,
 				B471A0271DB6E270004C81E9 /* MoneyTests.swift in Sources */,

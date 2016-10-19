@@ -58,7 +58,7 @@ class MoneyTests: XCTestCase {
         XCTAssert(10.0.USD.description == "USD10.0")
         XCTAssert(10.0.GBP.description == "GBP10.0")
         XCTAssert(10.0.EUR.description == "EUR10.0")
-        XCTAssert(10.0.CAN.description == "CAN10.0")
+        XCTAssert(10.0.YEN.description == "YEN10.0")
         XCTAssert(10.0.YEN.description == "YEN10.0")
     }
 

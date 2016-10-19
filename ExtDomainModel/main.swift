@@ -21,7 +21,6 @@ open class TestMe {
 }
 
 protocol CustomStringConvertible {
-
     // this property should return a human-readable version of the contents
     var description: String { get }
     
@@ -42,8 +41,6 @@ extension Double {
     { return Money(amount: Int(self), currency: "EUR") }
     var YEN: Money
     { return Money(amount: Int(self), currency: "YEN") }
-    var CAN: Money
-    {return Money(amount: Int(self), currency: "CAN") }
     
 }
 
@@ -55,7 +52,7 @@ extension Double {
 // classes used only on special occasions
 public struct Money: CustomStringConvertible, Mathematics{
     internal var description: String
-
+    
     public var amount : Int
     public var currency : String
     
@@ -140,7 +137,7 @@ public struct Money: CustomStringConvertible, Mathematics{
                 }
             }
             
-            return Money(amount: sumAmounts, currency: to) // 
+            return Money(amount: sumAmounts, currency: to) //
         }
         
     }
@@ -172,139 +169,135 @@ public struct Money: CustomStringConvertible, Mathematics{
         }
         
     }
-    
-    ////////////////////////////////////
-    // Job
-    //
-    open class Job : CustomStringConvertible {
-        internal var description: String
+}
 
-        fileprivate var title : String
-        fileprivate var type : JobType
-        
-        public enum JobType {
-            case Hourly(Double)
-            case Salary(Int)
-        }
-        
-        public init(title : String, type : JobType) {
-            self.title = title
-            self.type = type
-            self.description = "\(title) \(type))"
-        }
-        
-        open func calculateIncome(_ hours: Int) -> Int {
-            switch type {
-            case .Hourly(let income) : return Int(income * Double(hours))
-            case .Salary(let income) : return income
-            }
-        }
-       
-        
-        // bumps up the salary by the passed percentage...
-        open func raise(_ amt : Double) {
-            switch type {
-            case .Hourly(let income) : type = JobType.Hourly(income + amt)
-            case .Salary(let income) : type = JobType.Salary(Int(Double(income) + amt))
-            }
+////////////////////////////////////
+// Job
+//
+open class Job : CustomStringConvertible {
+    internal var description: String
+    
+    fileprivate var title : String
+    fileprivate var type : JobType
+    
+    public enum JobType {
+        case Hourly(Double)
+        case Salary(Int)
+    }
+    
+    public init(title : String, type : JobType) {
+        self.title = title
+        self.type = type
+        self.description = "\(title) \(type))"
+    }
+    
+    open func calculateIncome(_ hours: Int) -> Int {
+        switch type {
+        case .Hourly(let income) : return Int(income * Double(hours))
+        case .Salary(let income) : return income
         }
     }
     
     
-    ////////////////////////////////////
-    // Person
-    //
-    open class Person : CustomStringConvertible {
-        internal var description: String
+    // bumps up the salary by the passed percentage...
+    open func raise(_ amt : Double) {
+        switch type {
+        case .Hourly(let income) : type = JobType.Hourly(income + amt)
+        case .Salary(let income) : type = JobType.Salary(Int(Double(income) + amt))
+        }
+    }
+}
 
-        open var firstName : String = ""
-        open var lastName : String = ""
-        open var age : Int = 0
-        
-        fileprivate var _job : Job? = nil
-        // getters and setters for Job class
-        open var job : Job? {
-            get { return _job}
-            set(value) {
-                if (self.age > 15) {
-                    _job = value
-                }
+
+////////////////////////////////////
+// Person
+//
+open class Person : CustomStringConvertible {
+    internal var description: String
+    open var firstName : String = ""
+    open var lastName : String = ""
+    open var age : Int = 0
+    
+    fileprivate var _job : Job? = nil
+    
+    // getters and setters for Job class
+    open var job : Job? {
+        get { return _job}
+        set(value) {
+            if (self.age > 15) {
+                _job = value
+                self.description += ", job:\(_job!.description)"
             }
-        }
-        
-        fileprivate var _spouse : Person? = nil
-        open var spouse : Person? {
-            get { return _spouse }
-            set(value) {
-                if (self.age > 17) {
-                    _spouse =  value
-                }
-            }
-        }
-        
-        public init(firstName : String, lastName: String, age : Int) {
-            self.firstName = firstName
-            self.lastName = lastName
-            self.age = age
-            self.description = "\(firstName) \(lastName) , age: \(age)"
-            if (_job != nil) {
-                self.description += " job: \(job)"
-            }
-            if (_spouse != nil) {
-                self.description += " spouse: \(spouse)"
-            }
-        }
-        
-        open func toString() -> String {
-            return "[Person: firstName:\(firstName) lastName:\(lastName) age:\(age) job:\(_job) spouse:\(_spouse)]"
-            
         }
     }
     
-    ////////////////////////////////////
-    // Family
-    //
-    open class Family: CustomStringConvertible {
-        internal var description: String
+    fileprivate var _spouse : Person? = nil
+    open var spouse : Person? {
+        get { return _spouse }
+        set(value) {
+            if (self.age > 17) {
+                _spouse =  value
+                self.description += ", spouse:\(spouse!.firstName)"
+            }
+        }
+    }
+    
+    public init(firstName : String, lastName: String, age : Int) {
+        self.firstName = firstName
+        self.lastName = lastName
+        self.age = age
+        self.description = "\(firstName) \(lastName), age: \(age)"
+    }
+    
+    open func toString() -> String {
+        return "[Person: firstName:\(firstName) lastName:\(lastName) age:\(age) job:\(_job) spouse:\(_spouse)]"
+        
+    }
+}
 
-        fileprivate var members : [Person] = []
+////////////////////////////////////
+// Family
+//
+open class Family: CustomStringConvertible {
+    internal var description: String
+    
+    fileprivate var members : [Person] = []
+    
+    public init(spouse1: Person, spouse2: Person) {
         
-        public init(spouse1: Person, spouse2: Person) {
+        if (spouse1.spouse == nil && spouse2.spouse == nil) {
+            // adding to family of Person array
+            members.append(spouse1)
+            members.append(spouse2)
+            spouse1.spouse = spouse2
+            spouse2.spouse = spouse1
+        }
+        self.description = "spouse1 : \(spouse1) spouse2 : \(spouse2)"
+    }
+    
+    open func haveChild(_ child: Person) -> Bool {
+        
+        for i in members {
             
-            if (spouse1.spouse == nil && spouse2.spouse == nil) {
-                // adding to family of Person array
-                members.append(spouse1)
-                members.append(spouse2)
-                spouse1.spouse = spouse2
-                spouse2.spouse = spouse1
+            if (i.age > 21) {
+                members.append(child)
+                self.description += " child: \(child.description)"
+                return true
             }
-            self.description = "spouse1 : \(spouse1) spouse2 : \(spouse2)"
+        }
+        return false
+    }
+    
+    open func householdIncome() -> Int {
+        var totalIncome : Int = 0
+        
+        for i in members {
+            
+            if (i.age > 16 && i._job != nil) {
+                totalIncome += (i._job?.calculateIncome(2000))!
+            }
         }
         
-        open func haveChild(_ child: Person) -> Bool {
-            
-            for i in members {
-                
-                if (i.age > 21) {
-                    members.append(child)
-                    self.description += " child: \(child.description)"
-                    return true
-                }
-            }
-            return false
-        }
-        
-        open func householdIncome() -> Int {
-            var totalIncome : Int = 0
-            
-            for i in members {
-                
-                if (i.age > 16 && i._job != nil) {
-                    totalIncome += (i._job?.calculateIncome(2000))!
-                }
-            }
-            
-            return totalIncome
-        }
+        return totalIncome
     }
 }

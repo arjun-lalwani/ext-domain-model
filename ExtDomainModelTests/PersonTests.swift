@@ -8,11 +8,7 @@
 
 import XCTest
 
-import ExtDomainModel
-
 class PersonTests: XCTestCase {
-
-    let arjun = Person(firstName: "Arjun", lastName: "Lalwani", age: 19)
     
     override func setUp() {
         super.setUp()
@@ -24,5 +20,11 @@ class PersonTests: XCTestCase {
         super.tearDown()
     }
 
-    func test
+    func testPerson() {
+        
+        let arjun = Person(firstName: "Arjun", lastName: "Lalwani", age: 19)
+        arjun.job = Job(title: "Student", type: Job.JobType.Salary(1000))
+        XCTAssert(arjun.description == "Arjun Lalwani, age: 19, job:Student Salary(1000))", arjun.description)
+    }
+    
 }

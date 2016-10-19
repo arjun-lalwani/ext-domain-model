@@ -42,6 +42,8 @@ extension Double {
     { return Money(amount: Int(self), currency: "EUR") }
     var YEN: Money
     { return Money(amount: Int(self), currency: "YEN") }
+    var CAN: Money
+    {return Money(amount: Int(self), currency: "CAN") }
     
 }
 
@@ -138,7 +140,7 @@ public struct Money: CustomStringConvertible, Mathematics{
                 }
             }
             
-            return Money(amount: sumAmounts, currency: to) // self.currecny?
+            return Money(amount: sumAmounts, currency: to) // 
         }
         
     }
@@ -197,11 +199,13 @@ public struct Money: CustomStringConvertible, Mathematics{
             case .Salary(let income) : return income
             }
         }
+       
         
         // bumps up the salary by the passed percentage...
         open func raise(_ amt : Double) {
             switch type {
-            case .Hourly(<#T##Double#>)
+            case .Hourly(let income) : type = JobType.Hourly(income + amt)
+            case .Salary(let income) : type = JobType.Salary(Int(Double(income) + amt))
             }
         }
     }
@@ -252,7 +256,7 @@ public struct Money: CustomStringConvertible, Mathematics{
         }
         
         open func toString() -> String {
-            return "Person: firstName:\(firstName) lastName:\(lastName) age:\(age) job:\(_job) spouse:\(_spouse)"
+            return "[Person: firstName:\(firstName) lastName:\(lastName) age:\(age) job:\(_job) spouse:\(_spouse)]"
             
         }
     }
@@ -291,7 +295,16 @@ public struct Money: CustomStringConvertible, Mathematics{
         }
         
         open func householdIncome() -> Int {
-            return 1
+            var totalIncome : Int = 0
+            
+            for i in members {
+                
+                if (i.age > 16 && i._job != nil) {
+                    totalIncome += (i._job?.calculateIncome(2000))!
+                }
+            }
+            
+            return totalIncome
         }
     }
 }
